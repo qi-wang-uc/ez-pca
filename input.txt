@@ -1,0 +1,8 @@
+# Input file for EZ-PCA
+
+job_name  test-pca      # Output file name will be $job_name_PCA.dat
+psf_name  test-mol.psf  # protein structure file
+dcd_name  test-mol.dcd  # trajectory file of Cartesian coordinates
+
+pca_type  CA            # [CA] [HEAVY] [ALL]
+num_of_pc 10            # Number of princpal components to write.

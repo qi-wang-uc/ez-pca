@@ -7,6 +7,8 @@ Program under development...
 - [X] Re-organize the program for easier maintainance
 - [X] Read protein structure file
 - [X] Read binary trajectory file
+- [X] Apply proper algorithm to fit each frame to a reference (or average) structure 
 - [ ] Build covariance matrix of Cartesian coordinates
 - [ ] Matrix diagonalization
-- [ ] Apply proper algorithm to fit each frame to a reference (or average) structure 
+- [ ] Change coordinate data structure to avoid format conversion back and forth.
+

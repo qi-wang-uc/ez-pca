@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <iomanip>
 #include "../include/psf.h"
 
 // Any PSF file that can help to retrieve atom index information is ok.
@@ -71,10 +72,13 @@ bool PSF::write_psf(std::string inp_name) {
 	out_file << this->psf_header << std::endl << std::endl 
 			 << this->n_CAs << " !NATOM" << std::endl;
 	for(integer i=0; i<this->psf_atoms.size(); i++) {
-		out_file << i+1 << this->psf_atoms[i].segname << this->psf_atoms[i].resid 
-				 << this->psf_atoms[i].resname << this->psf_atoms[i].atomname 
-				 << this->psf_atoms[i].atomtype << this->psf_atoms[i].charge 
-				 << this->psf_atoms[i].mass << this->psf_atoms[i].unused 
+		out_file << std::right << std::setw(8) << (i+1)
+				 << " " << std::setw(4) << this->psf_atoms[i].segname 
+				 << " " << std::left << std::setw(4) << this->psf_atoms[i].resid 
+				 << " " << std::left << std::setw(4) << this->psf_atoms[i].resname 
+				 << " " << std::left << std::setw(4) << this->psf_atoms[i].atomname 
+				 << " " << std::left << this->psf_atoms[i].atomtype 
+				 << "    0.00000       100.000           0   0.00000     -0.301140E-02" // quick & dirty
 				 << std::endl;
 	}
 	out_file.close();

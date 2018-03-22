@@ -4,9 +4,8 @@
 #include <vector>
 #include "main.h"
 
-void align(const std::vector<real> ref_coor, 
-	   std::vector<real> inp_coor, 
-   	   const integer dim3);
+void align_translate(const std::vector<real>& ref_coor, std::vector<real>& inp_coor, const integer& dim);
 
+void align_rotate(const std::vector<real>& ref_coor, std::vector<real>& inp_coor, const integer& dim);
 
 #endif

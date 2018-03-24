@@ -12,3 +12,10 @@ Program under development...
 - [ ] Matrix diagonalization
 - [ ] Change coordinate data structure to avoid format conversion back and forth.
 
+A short demo of before and after applying the alignment:
+- Before alignment (atomistic representation)
+<img src="https://github.com/wangqi1990uc/ez-pca/blob/master/demo-allatom.gif" width="40%" height="40%" />
+
+- After alignment (coarse-grained representation using CA backbone atoms)
+<img src="https://github.com/wangqi1990uc/ez-pca/blob/master/demo-ca.gif" width="40%" height="40%" />
+

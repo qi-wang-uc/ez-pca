@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <string>
+#include <algorithm>
+#include <valarray>
 #include "main.h"
 
 // For writing DCD files.
@@ -20,21 +22,18 @@ struct DCD_Info {
     std::string dcd_header1;    // [100] "CORD" and info of dcd stats.
     std::string dcd_remark1;    // [80] "REMARK CREATED BY ...
     std::string dcd_remark2;    // [80] "REMARK" + $DATE + $USER 
-    std::string dcd_header2;    // [16] NATOM padded by dummy integers on both sides
+    std::string dcd_header2;    // [16] NATOM padded by dummy size_ts on both sides
 
     // Obtained from header.
-    integer n_atom  = 0;
-    integer n_frame = 0;
-    integer q_cell  = 0;
+    size_t n_atom  = 0;
+    size_t n_frame = 0;
+    size_t q_cell  = 0;
+    
     // Caclulated based on above.
-    integer x_offset = 0;
-	integer y_offset = 0;
-	integer z_offset = 0;
-	integer sz_frame = 0;
-    // DCD_Info() {}
-    // DCD_Info(integer na, integer nf, integer qc, integer x, integer y, integer z, integer sz)
-    //     : n_atom(na), n_frame(nf), q_cell(qc), x_offset(x), y_offset(y), z_offset(z), sz_frame(sz)
-    //     {}
+    size_t x_offset = 0;
+	size_t y_offset = 0;
+	size_t z_offset = 0;
+	size_t sz_frame = 0;
 };
 
 /* The logic of this part is a little confusing.
@@ -49,29 +48,43 @@ struct DCD_Info {
     we don't have the average coordinate as reference to calclualte correlation or align to. After (1b), (1c) and (2b)
     can be done subsequently.
 */
+struct Coor_Sets {
+    std::valarray<float> xcoor;
+    std::valarray<float> ycoor;
+    std::valarray<float> zcoor;
+    Coor_Sets () {}
+    Coor_Sets (const std::valarray<float>& x, const std::valarray<float>& y, const std::valarray<float>& z):
+        xcoor(x), ycoor(y), zcoor(z) {}
+    Coor_Sets& operator += (const Coor_Sets& rhs) {
+        this->xcoor += rhs.xcoor;
+        this->ycoor += rhs.ycoor;
+        this->zcoor += rhs.zcoor;
+        return *this;
+    }
+    Coor_Sets& operator /= (const size_t& rhs) {
+        this->xcoor /= rhs;
+        this->ycoor /= rhs;
+        this->zcoor /= rhs;
+        return *this;
+    }
+    void resize(size_t dim);
+};
 
-// Actually DCD_IO
-struct DCD {    // TODO: Make DCD a parent class and specify input or output as children class.
-    // Temporary coordinate arrays for input or output.
-    std::vector<real> xcoor;
-    std::vector<real> ycoor;
-    std::vector<real> zcoor;
+struct DCD {
+    // [FRAME_SIZE] buffer array
+    std::vector<float> frame_buff;  
 
     // API for input dcd files
     bool read_dcdheader(const std::string& inp_name, DCD_Info& dcd_info);
-    void read_dcdframe(std::ifstream& inp_file, std::vector<real>& coor_buff,
-                        const integer& iframe, const DCD_Info& dcd_info, 
-                        const std::vector<integer>& index_CAs, std::vector<real>& coor_frame);
-    // void convert2regcoor()
-    // API for out dcd files                        
-    void write_dcdheader(std::ofstream& out_file, const integer& N_atom, const DCD_Info& dcd_info, const DCD_Pads& dcd_pads);
-    void write_dcdframe(std::ofstream& out_file, const integer& N_atom, const DCD_Pads& dcd_pads);
+    void read_dcdframe(std::ifstream& inp_file, const size_t& iframe, 
+                        const DCD_Info& dcd_info, const std::vector<size_t>& index_CAs,
+                        Coor_Sets& coor_sets);
 
-    // Covert coordinates from regular format: 
-    //   (X1, Y1, Z1), (X2, Y2, Z2), ..., (Xn, Yn, Zn) 
-    // to dcd format:
-    //   (X1, X2, ..., Xn), (Y1, Y2, ..., Yn), (Z1, Z2, ..., Zn)
-    void convert2dcdcoor(const std::vector<real>& inp_coor, const integer& N_atom);
+    // API for out dcd files                        
+    void write_dcdheader(const size_t& N_atom, const DCD_Info& dcd_info, 
+                         const DCD_Pads& dcd_pads,std::ofstream& out_file);
+    void write_dcdframe(const Coor_Sets& coor_sets, const size_t& N_atom, 
+                        const DCD_Pads& dcd_pads, std::ofstream& out_file);
 };
 
 #endif

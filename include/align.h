@@ -2,10 +2,10 @@
 #define ALIGN_H
 
 #include <vector>
-#include "main.h"
+#include "dcd.h"
 
-void align_translate(const std::vector<real>& ref_coor, std::vector<real>& inp_coor, const integer& dim);
+void align_translate(const Coor_Sets& ref_coor_sets, const size_t& Natom, Coor_Sets& inp_coor_sets);
 
-void align_rotate(const std::vector<real>& ref_coor, std::vector<real>& inp_coor, const integer& dim);
+void align_rotate(const Coor_Sets& ref_coor_sets, const size_t& Natom, Coor_Sets& inp_coor_sets);
 
 #endif

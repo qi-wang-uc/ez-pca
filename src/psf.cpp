@@ -71,7 +71,7 @@ bool PSF::write_psf(std::string inp_name) {
 	if(!out_file.is_open()) return false;
 	out_file << this->psf_header << std::endl << std::endl 
 			 << this->n_CAs << " !NATOM" << std::endl;
-	for(integer i=0; i<this->psf_atoms.size(); i++) {
+	for(size_t i=0; i<this->psf_atoms.size(); i++) {
 		out_file << std::right << std::setw(8) << (i+1)
 				 << " " << std::setw(4) << this->psf_atoms[i].segname 
 				 << " " << std::left << std::setw(4) << this->psf_atoms[i].resid 

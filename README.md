@@ -21,4 +21,5 @@ A short demo of before and after applying the alignment:
 <img src="https://github.com/wangqi1990uc/ez-pca/blob/master/demo-ca.gif" width="40%" height="40%" />
 
 The top 3 principal components are:
-<img src="https://github.com/wangqi1990uc/ez-pca/blob/master/top-pcs.png" width="40%" height="40%" />
+
+<img src="https://github.com/wangqi1990uc/ez-pca/blob/master/top-pcs.png" width="80%" height="80%" />

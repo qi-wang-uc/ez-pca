@@ -9,9 +9,9 @@ Program under development...
 - [X] Read binary trajectory file
 - [X] Apply proper algorithm to fit each frame to a reference (or average) structure 
 - [X] Change coordinate data structure to avoid format conversion back and forth.
-- [ ] Build covariance matrix of Cartesian coordinates
-- [ ] Matrix diagonalization
-- [ ] Write data file 
+- [X] Build covariance matrix of Cartesian coordinates
+- [X] Matrix diagonalization
+- [X] Write data file 
 
 A short demo of before and after applying the alignment:
 - Before alignment (atomistic representation), protein is drifting in water
@@ -20,3 +20,5 @@ A short demo of before and after applying the alignment:
 - After alignment (coarse-grained representation using CA backbone atoms)
 <img src="https://github.com/wangqi1990uc/ez-pca/blob/master/demo-ca.gif" width="40%" height="40%" />
 
+The top 3 principal components are:
+<img src="https://github.com/wangqi1990uc/ez-pca/blob/master/top-pcs.png" width="40%" height="40%" />

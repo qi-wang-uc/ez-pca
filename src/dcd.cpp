@@ -4,10 +4,10 @@
 #include <iomanip>
 #include "../include/dcd.h"
 
-void Coor_Sets::resize(size_t dim) {
-    this->xcoor.resize(dim);
-    this->ycoor.resize(dim);
-    this->zcoor.resize(dim);
+void Coor_Sets::initialize(size_t dim, float val) {
+    this->xcoor.resize(dim, val);
+    this->ycoor.resize(dim, val);
+    this->zcoor.resize(dim, val);
 }
 
 bool DCD::read_dcdheader(const std::string& inp_name, DCD_Info& dcd_info) {
@@ -65,7 +65,8 @@ void DCD::read_dcdframe(std::ifstream& inp_file,
 	// (14 or 0)   +    (1)      + n_atom+      (2)      + n_atom+      (2)      + natom  +    (1).
 	// Thus, the Cartesian coordinates of the (i-1)-th atom are: (x_offset+i, y_offset+i, z_offset+i).
     if(0==iframe) {
-        inp_file.seekg(276, std::ios::beg);	// Rewind dcd file and skip header information.(100+80+80+16)
+        // Rewind dcd file and skip header information.(100+80+80+16)
+        inp_file.seekg(276, std::ios::beg);	
         this->frame_buff.resize(dcd_info.sz_frame/sizeof(float));
     }
     inp_file.read(reinterpret_cast<char*>(&this->frame_buff[0]), dcd_info.sz_frame);

@@ -67,7 +67,7 @@ struct Coor_Sets {
         this->zcoor /= rhs;
         return *this;
     }
-    void resize(size_t dim);
+    void initialize(size_t dim, float val);
 };
 
 struct DCD {

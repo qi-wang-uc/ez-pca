@@ -17,6 +17,8 @@ int main(int argc, char* argv[]) {
 	if(!psf.read_psf(config.psf_name)) return EXIT_FAILURE;
 	if(!psf.write_psf(config.job_name))return EXIT_FAILURE;
 	PCA pca;
-	pca.build_corr(config, psf);
+	pca.align_coor(config, psf);
+	pca.build_corr();
+	pca.diag_corr(config.job_name, config.num_of_pc);
 	return EXIT_SUCCESS;
 }

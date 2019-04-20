@@ -47,7 +47,7 @@ bool DCD::read_dcdheader(const std::string& inp_name, DCD_Info& dcd_info) {
 	inp_file.read(dcd_head2, 16);
 	int n_atom = *(int*)(&dcd_head2[8]); dcd_info.n_atom = n_atom;
 	std::cout << "ReadDCD> (" << n_atom << ") atoms found in trajectory file." << std::endl;
-    dcd_info.x_offset = (q_cell==1) ? 15           : 1;	
+	dcd_info.x_offset = (q_cell==1) ? 15          : 1;	
 	dcd_info.y_offset = (q_cell==1) ? n_atom+17   : n_atom + 3;
 	dcd_info.z_offset = (q_cell==1) ? 2*n_atom+19 : 2*n_atom+5;
 	dcd_info.sz_frame = (q_cell==1) ? (3*(4*n_atom+8)+56) : (3*(4*n_atom+8));

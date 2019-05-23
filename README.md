@@ -1,6 +1,17 @@
-# ez-pca
+# EZ-PCA
 Principal Component Analysis of Molecular Dynamics Trajectories.
 
+## Example input
+```
+# Input file for EZ-PCA
+
+job_name  test-pca      # Output file name will be $job_name_PCA.dat
+psf_name  test-mol.psf  # protein structure file
+dcd_name  test-mol.dcd  # trajectory file of Cartesian coordinates
+num_of_pc 10            # Number of princpal components to write.
+```
+
+## Notes
 A short demo of before and after applying the alignment:
 - Before alignment (atomistic representation), protein is drifting in water
 

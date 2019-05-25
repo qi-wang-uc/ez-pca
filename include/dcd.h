@@ -31,12 +31,12 @@ struct DCD_Info {
     
     // Caclulated based on above.
     size_t x_offset = 0;
-	size_t y_offset = 0;
-	size_t z_offset = 0;
-	size_t sz_frame = 0;
+    size_t y_offset = 0;
+    size_t z_offset = 0;
+    size_t sz_frame = 0;
 };
 
-/* The logic of this part is a little confusing.
+/* The logic of this part is as follows.
 - For trajectory reading, we need to read input_traj 3 times: 
     (1a) - 1st time to get header info to make sure it's compatible with PSF and retrieve NFILE as number of frames.
     (1b) - 2nd read to loop through each frame in order to calculate average coordinate.

@@ -5,11 +5,11 @@
 #include "main.h"
 
 struct Config {
-	std::string job_name;
-	std::string psf_name;
-	std::string dcd_name;
-	size_t	num_of_pc = 10;
-	bool read_config(std::string inp_name);
+    std::string job_name;
+    std::string psf_name;
+    std::string dcd_name;
+    size_t	num_of_pc = 10;
+    bool read_config(std::string inp_name);
 };
 
 std::string concat_str(std::string inp_str);
